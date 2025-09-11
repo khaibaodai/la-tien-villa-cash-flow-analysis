@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OneS | Báo Cáo Phân Tích Dòng Tiền LA TIÊN VILLA</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .chart-container { height: 400px; }
+        .table-container { font-size: 14px; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="max-w-7xl mx-auto p-6 bg-white">
+        <!-- Header -->
+        <div class="text-center mb-8 border-b-4 border-blue-600 pb-6">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">BÁO CÁO PHÂN TÍCH DÒNG TIỀN</h1>
+            <h2 class="text-3xl font-semibold text-blue-600">LA TIÊN VILLA</h2>
+            <p class="text-gray-600 mt-2">Phân tích đầu tư toàn diện với 6 kịch bản công suất</p>
+            <p class="text-gray-600 mt-2">by Vũ Trọng Khải - 0902 79 8800</p>
+        </div>
+
+        <!-- Project Overview -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-building mr-3 text-blue-600"></i>Tổng Quan Dự Án
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-600">
+                    <h3 class="font-semibold text-gray-800">Tổng Giá Trị Dự Án</h3>
+                    <p class="text-2xl font-bold text-blue-600">15 Tỷ VNĐ</p>
+                    <p class="text-sm text-gray-600">Chưa VAT & KPBT</p>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-600">
+                    <h3 class="font-semibold text-gray-800">Diện Tích</h3>
+                    <p class="text-2xl font-bold text-green-600">154 m²</p>
+                </div>
+                <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-600">
+                    <h3 class="font-semibold text-gray-800">Vốn Ban Đầu</h3>
+                    <p class="text-2xl font-bold text-yellow-600">2.25 Tỷ VNĐ</p>
+                    <p class="text-sm text-gray-600">15% tổng giá trị</p>
+                </div>
+                <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-600">
+                    <h3 class="font-semibold text-gray-800">Bàn Giao</h3>
+                    <p class="text-2xl font-bold text-purple-600">Năm 2027</p>
+                </div>
+            </div>
+            <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h4 class="font-semibold">Giá Thuê:</h4>
+                    <p class="text-lg font-bold text-gray-800">10 triệu VNĐ/đêm</p>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h4 class="font-semibold">Phí Quản Lý:</h4>
+                    <p class="text-lg font-bold text-gray-800">30,000 VNĐ/tháng/m²</p>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h4 class="font-semibold">Tỷ Lệ Tăng Giá Tự Nhiên (mức cơ sở thấp nhất):</h4>
+                    <p class="text-lg font-bold text-gray-800">6%/năm</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-chart-line mr-3 text-blue-600"></i>Phân Tích Tài Chính Theo Kịch Bản
+            </h2>
+            
+            <!-- Revenue vs Costs Chart -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                <div class="bg-white border rounded-lg p-4">
+                    <h3 class="text-lg font-semibold mb-3">Doanh Thu & Chi Phí Theo Công Suất</h3>
+                    <div class="chart-container">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white border rounded-lg p-4">
+                    <h3 class="text-lg font-semibold mb-3">ROI Theo Kịch Bản Công Suất</h3>
+                    <div class="chart-container">
+                        <canvas id="roiChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payback Period and Break-even Charts -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                <div class="bg-white border rounded-lg p-4">
+                    <h3 class="text-lg font-semibold mb-3">Thời Gian Hoàn Vốn</h3>
+                    <div class="chart-container">
+                        <canvas id="paybackChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white border rounded-lg p-4">
+                    <h3 class="text-lg font-semibold mb-3">Giá Trị Villa Tại Điểm Hòa Vốn</h3>
+                    <div class="chart-container">
+                        <canvas id="villaValueChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profit Analysis -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white border rounded-lg p-4">
+                    <h3 class="text-lg font-semibold mb-3">Lợi Nhuận Hàng Năm</h3>
+                    <div class="chart-container">
+                        <canvas id="profitChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white border rounded-lg p-4">
+                    <h3 class="text-lg font-semibold mb-3">Tỷ Lệ Lãi Kép</h3>
+                    <div class="chart-container">
+                        <canvas id="compoundChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Table -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-table mr-3 text-blue-600"></i>Bảng Dữ Liệu Chi Tiết
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse border border-gray-300 table-container">
+                    <thead class="bg-blue-600 text-white">
+                        <tr>
+                            <th class="border border-gray-300 p-3 text-left">Chỉ Tiêu</th>
+                            <th class="border border-gray-300 p-3 text-center">CS 50%</th>
+                            <th class="border border-gray-300 p-3 text-center">CS 60%</th>
+                            <th class="border border-gray-300 p-3 text-center">CS 70%</th>
+                            <th class="border border-gray-300 p-3 text-center">CS 80%</th>
+                            <th class="border border-gray-300 p-3 text-center">CS 90%</th>
+                            <th class="border border-gray-300 p-3 text-center">CS 100%</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-blue-50">
+                            <td class="border border-gray-300 p-3 font-semibold">Doanh Thu Hàng Năm</td>
+                            <td class="border border-gray-300 p-3 text-center">1.825 tỷ VNĐ</td>
+                            <td class="border border-gray-300 p-3 text-center">2.190 tỷ VNĐ</td>
+                            <td class="border border-gray-300 p-3 text-center">2.555 tỷ VNĐ</td>
+                            <td class="border border-gray-300 p-3 text-center">2.920 tỷ VNĐ</td>
+                            <td class="border border-gray-300 p-3 text-center">3.285 tỷ VNĐ</td>
+                            <td class="border border-gray-300 p-3 text-center">3.650 tỷ VNĐ</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 p-3 font-semibold">Tổng Chi Phí Hàng Năm (20% phí)</td>
+                            <td class="border border-gray-300 p-3 text-center">450 triệu VNĐ</td>
+                            <td class="border border-gray-300 p-3 text-center">533 triệu VNĐ</td>
+                            <td class="border border-gray-300 p-3 text-center">615 triệu VNĐ</td>
+                            <td class="border border-gray-300 p-3 text-center">698 triệu VNĐ</td>
+                            <td class="border border-gray-300 p-3 text-center">780 triệu VNĐ</td>
+                            <td class="border border-gray-300 p-3 text-center">863 triệu VNĐ</td>
+                        </tr>
+                        <tr class="bg-green-50">
+                            <td class="border border-gray-300 p-3 font-semibold">Lợi Nhuận Hàng Năm</td>
+                            <td class="border border-gray-300 p-3 text-center font-bold text-green-600">1.375 tỷ VNĐ</td>
+                            <td class="border border-gray-300 p-3 text-center font-bold text-green-600">1.657 tỷ VNĐ</td>
+                            <td class="border border-gray-300 p-3 text-center font-bold text-green-600">1.940 tỷ VNĐ</td>
+                            <td class="border border-gray-300 p-3 text-center font-bold text-green-600">2.222 tỷ VNĐ</td>
+                            <td class="border border-gray-300 p-3 text-center font-bold text-green-600">2.505 tỷ VNĐ</td>
+                            <td class="border border-gray-300 p-3 text-center font-bold text-green-600">2.787 tỷ VNĐ</td>
+                        </tr>
+                        <tr class="bg-yellow-50">
+                            <td class="border border-gray-300 p-3 font-semibold">ROI (%)</td>
+                            <td class="border border-gray-300 p-3 text-center font-bold">9.17%</td>
+                            <td class="border border-gray-300 p-3 text-center font-bold">11.05%</td>
+                            <td class="border border-gray-300 p-3 text-center font-bold">12.93%</td>
+                            <td class="border border-gray-300 p-3 text-center font-bold">14.81%</td>
+                            <td class="border border-gray-300 p-3 text-center font-bold">16.70%</td>
+                            <td class="border border-gray-300 p-3 text-center font-bold">18.58%</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 p-3 font-semibold">Thời Gian Hoàn Vốn</td>
+                            <td class="border border-gray-300 p-3 text-center">10 năm</td>
+                            <td class="border border-gray-300 p-3 text-center">8 năm</td>
+                            <td class="border border-gray-300 p-3 text-center">7 năm</td>
+                            <td class="border border-gray-300 p-3 text-center">6 năm</td>
+                            <td class="border border-gray-300 p-3 text-center">5 năm</td>
+                            <td class="border border-gray-300 p-3 text-center">5 năm</td>
+                        </tr>
+                        <tr class="bg-purple-50">
+                            <td class="border border-gray-300 p-3 font-semibold">Điểm Hòa Vốn</td>
+                            <td class="border border-gray-300 p-3 text-center">2037</td>
+                            <td class="border border-gray-300 p-3 text-center">2035</td>
+                            <td class="border border-gray-300 p-3 text-center">2034</td>
+                            <td class="border border-gray-300 p-3 text-center">2033</td>
+                            <td class="border border-gray-300 p-3 text-center">2032</td>
+                            <td class="border border-gray-300 p-3 text-center">2032</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 p-3 font-semibold">Giá Trị Villa Tại Hòa Vốn</td>
+                            <td class="border border-gray-300 p-3 text-center">24.0 tỷ VNĐ</td>
+                            <td class="border border-gray-300 p-3 text-center">22.5 tỷ VNĐ</td>
+                            <td class="border border-gray-300 p-3 text-center">21.2 tỷ VNĐ</td>
+                            <td class="border border-gray-300 p-3 text-center">20.1 tỷ VNĐ</td>
+                            <td class="border border-gray-300 p-3 text-center">19.5 tỷ VNĐ</td>
+                            <td class="border border-gray-300 p-3 text-center">19.5 tỷ VNĐ</td>
+                        </tr>
+                        <tr class="bg-orange-50">
+                            <td class="border border-gray-300 p-3 font-semibold">Tỷ Lệ Lãi Kép</td>
+                            <td class="border border-gray-300 p-3 text-center font-bold">2.6x</td>
+                            <td class="border border-gray-300 p-3 text-center font-bold">2.5x</td>
+                            <td class="border border-gray-300 p-3 text-center font-bold">2.4x</td>
+                            <td class="border border-gray-300 p-3 text-center font-bold">2.3x</td>
+                            <td class="border border-gray-300 p-3 text-center font-bold">2.3x</td>
+                            <td class="border border-gray-300 p-3 text-center font-bold">2.3x</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Key Insights -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-lightbulb mr-3 text-yellow-600"></i>Phân Tích & Khuyến Nghị
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-600">
+                    <h3 class="text-lg font-semibold text-green-800 mb-3">
+                        <i class="fas fa-thumbs-up mr-2"></i>Điểm Mạnh
+                    </h3>
+                    <ul class="space-y-2 text-green-700">
+                        <li>• ROI cao từ 9.17% đến 18.58%</li>
+                        <li>• Thời gian hoàn vốn ngắn (5-10 năm)</li>
+                        <li>• Tỷ lệ lãi kép hấp dẫn (2.3x-2.6x)</li>
+                        <li>• Tăng trưởng giá trị 6%/năm</li>
+                        <li>• Vị trí đắc địa với tiềm năng phát triển</li>
+                    </ul>
+                </div>
+                <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-600">
+                    <h3 class="text-lg font-semibold text-red-800 mb-3">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>Rủi Ro
+                    </h3>
+                    <ul class="space-y-2 text-red-700">
+                        <li>• Phụ thuộc vào tỷ lệ công suất</li>
+                        <li>• Rủi ro thị trường du lịch</li>
+                        <li>• Chi phí vận hành tăng theo công suất</li>
+                        <li>• Thời gian bàn giao đến 2027</li>
+                        <li>• Tác động của các yếu tố kinh tế vĩ mô</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommendations -->
+        <div class="mb-8 bg-blue-50 p-6 rounded-lg border border-blue-200">
+            <h3 class="text-xl font-bold text-blue-800 mb-4">
+                <i class="fas fa-chart-line mr-2"></i>Khuyến Nghị Đầu Tư
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white p-4 rounded border-l-4 border-blue-600">
+                    <h4 class="font-semibold text-blue-800">Kịch Bản Tối Ưu</h4>
+                    <p class="text-gray-700">Công suất 80-90% mang lại ROI tốt nhất với rủi ro hợp lý</p>
+                </div>
+                <div class="bg-white p-4 rounded border-l-4 border-green-600">
+                    <h4 class="font-semibold text-green-800">Chiến Lược Đầu Tư</h4>
+                    <p class="text-gray-700">Đầu tư dài hạn 10-15 năm để tối đa hóa lợi nhuận</p>
+                </div>
+                <div class="bg-white p-4 rounded border-l-4 border-yellow-600">
+                    <h4 class="font-semibold text-yellow-800">Quản Lý Rủi Ro</h4>
+                    <p class="text-gray-700">Đảm bảo công suất tối thiểu 60% để có ROI dương</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conclusion -->
+        <div class="bg-gray-800 text-white p-6 rounded-lg">
+            <h3 class="text-xl font-bold mb-3">
+                <i class="fas fa-flag-checkered mr-2"></i>Kết Luận
+            </h3>
+            <p class="text-gray-300 leading-relaxed">
+                Dự án LA TIÊN VILLA thể hiện tiềm năng đầu tư hấp dẫn với ROI cao và thời gian hoàn vốn ngắn. 
+                Với vốn đầu tư ban đầu 2.25 tỷ VNĐ, nhà đầu tư có thể kỳ vọng lợi nhuận hàng năm từ 1.375 đến 2.787 tỷ VNĐ 
+                tùy thuộc vào công suất hoạt động. Khuyến nghị duy trì công suất từ 70-90% để đạt hiệu quả đầu tư tối ưu 
+                với ROI trong khoảng 12.93%-16.70%.
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-8 pt-6 border-t border-gray-200">
+            <p class="text-gray-600">© 2024 LA TIÊN VILLA - Báo cáo phân tích đầu tư - by Vũ Trọng Khải - 0902 79 8800</p>
+            <p class="text-sm text-gray-500">Dữ liệu được cập nhật tính đến tháng 09/2025</p>
+        </div>
+    </div>
+
+    <script>
+        // Data for charts
+        const occupancyRates = ['50%', '60%', '70%', '80%', '90%', '100%'];
+        const revenueData = [1.825, 2.190, 2.555, 2.920, 3.285, 3.650];
+        const costData = [0.450, 0.533, 0.615, 0.698, 0.780, 0.863];
+        const profitData = [1.375, 1.657, 1.940, 2.222, 2.505, 2.787];
+        const roiData = [9.17, 11.05, 12.93, 14.81, 16.70, 18.58];
+        const paybackData = [10, 8, 7, 6, 5, 5];
+        const villaValueData = [24.0, 22.5, 21.2, 20.1, 19.5, 19.5];
+        const compoundData = [2.6, 2.5, 2.4, 2.3, 2.3, 2.3];
+
+        // Revenue Chart
+        new Chart(document.getElementById('revenueChart'), {
+            type: 'bar',
+            data: {
+                labels: occupancyRates,
+                datasets: [{
+                    label: 'Doanh Thu (Tỷ VNĐ)',
+                    data: revenueData,
+                    backgroundColor: 'rgba(59, 130, 246, 0.8)'
+                }, {
+                    label: 'Chi Phí (Tỷ VNĐ)',
+                    data: costData,
+                    backgroundColor: 'rgba(239, 68, 68, 0.8)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true, title: { display: true, text: 'Tỷ VNĐ' } }
+                }
+            }
+        });
+
+        // ROI Chart
+        new Chart(document.getElementById('roiChart'), {
+            type: 'line',
+            data: {
+                labels: occupancyRates,
+                datasets: [{
+                    label: 'ROI (%)',
+                    data: roiData,
+                    borderColor: 'rgba(16, 185, 129, 1)',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true, title: { display: true, text: 'ROI (%)' } }
+                }
+            }
+        });
+
+        // Payback Chart
+        new Chart(document.getElementById('paybackChart'), {
+            type: 'bar',
+            data: {
+                labels: occupancyRates,
+                datasets: [{
+                    label: 'Thời Gian Hoàn Vốn (Năm)',
+                    data: paybackData,
+                    backgroundColor: 'rgba(245, 158, 11, 0.8)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true, title: { display: true, text: 'Năm' } }
+                }
+            }
+        });
+
+        // Villa Value Chart
+        new Chart(document.getElementById('villaValueChart'), {
+            type: 'line',
+            data: {
+                labels: occupancyRates,
+                datasets: [{
+                    label: 'Giá Trị Villa (Tỷ VNĐ)',
+                    data: villaValueData,
+                    borderColor: 'rgba(139, 92, 246, 1)',
+                    backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: false, title: { display: true, text: 'Tỷ VNĐ' } }
+                }
+            }
+        });
+
+        // Profit Chart
+        new Chart(document.getElementById('profitChart'), {
+            type: 'bar',
+            data: {
+                labels: occupancyRates,
+                datasets: [{
+                    label: 'Lợi Nhuận Hàng Năm (Tỷ VNĐ)',
+                    data: profitData,
+                    backgroundColor: 'rgba(16, 185, 129, 0.8)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true, title: { display: true, text: 'Tỷ VNĐ' } }
+                }
+            }
+        });
+
+        // Compound Chart
+        new Chart(document.getElementById('compoundChart'), {
+            type: 'doughnut',
+            data: {
+                labels: occupancyRates,
+                datasets: [{
+                    label: 'Tỷ Lệ Lãi Kép',
+                    data: compoundData,
+                    backgroundColor: [
+                        'rgba(239, 68, 68, 0.8)',
+                        'rgba(245, 158, 11, 0.8)',
+                        'rgba(34, 197, 94, 0.8)',
+                        'rgba(59, 130, 246, 0.8)',
+                        'rgba(139, 92, 246, 0.8)',
+                        'rgba(236, 72, 153, 0.8)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDhV3EpZuMfWBY5iM8GkekIiw8ugUJEXaL3CnWskWF0TxKC%2Bvk4pUSKKba9rrPQImgxWxoqvHuxBBP9DYvK1Fjx7fQ0PB8NuL09yiilWbSHBQ4T%2FCYBZsnijmw0ml3GCfgIywlYTiWoq21wNR8jHM7AhXJiV0BQtNuK3TrTudoFkA1VNG2pXdbJ%2FMD689kHBkge10oGg34%2BGcqQBWhuOfxJufE%2BJAPsbKezP2skaZ1M%2BJjrzbYjIFsaLhyrS4YLHLlH23jvGc%2FyXRX5H7hdpFEqneQnCzoRKYPKo0RSCDjulVJv7fAdiWfPJFgI%2FjuZfj6FvuqPmHF7Dgh0QKfIUJpz%2BxESTVQxz3eWtT1GvA1d%2BGJ9tontf3b8y51iluLQOkNINHaE6G3%2BC4XXfXokyaq27C7uuwMOAQW1kbz8EVtmolRJZpkVK7HShWaMbP55095h8BmBej9wUjc0m6%2F0%2BBgaHfd8zimezw3feyN8A%2Bnm1y8pbrv%2BWP1rxCHM5eu4R1zU7DdhMt4%2FV6Kj5xPfB0cgg%3D";
+        window.__genspark_locale = "en-US";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDhV3EpZuMfWBY5iM8GkekIiw8ugUJEXaL3CnWskWF0TxKC+vk4pUSKKba9rrPQImgxWxoqvHuxBBP9DYvK1Fjx7fQ0PB8NuL09yiilWbSHBQ4T/CYBZsnijmw0ml3GCfgIywlYTiWoq21wNR8jHM7AhXJiV0BQtNuK3TrTudoFkA1VNG2pXdbJ/MD689kHBkge10oGg34+GcqQBWhuOfxJufE+JAPsbKezP2skaZ1M+JjrzbYjIFsaLhyrS4YLHLlH23jvGc/yXRX5H7hdpFEqneQnCzoRKYPKo0RSCDjulVJv7fAdiWfPJFgI/juZfj6FvuqPmHF7Dgh0QKfIUJpz+xESTVQxz3eWtT1GvA1d+GJ9tontf3b8y51iluLQOkNINHaE6G3+C4XXfXokyaq27C7uuwMOAQW1kbz8EVtmolRJZpkVK7HShWaMbP55095h8BmBej9wUjc0m6/0+BgaHfd8zimezw3feyN8A+nm1y8pbrv+WP1rxCHM5eu4R1zU7DdhMt4/V6Kj5xPfB0cgg=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    
